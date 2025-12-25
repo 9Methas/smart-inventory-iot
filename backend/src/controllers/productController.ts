@@ -10,6 +10,7 @@ export let products = [
     description: 'รายละเอียดสินค้า A',
     price: 1000,
     quantity: 50,
+    minStock: 20, // จำนวนขั้นต่ำที่ต้องมี
     category: 'Electronics',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -20,6 +21,7 @@ export let products = [
     description: 'รายละเอียดสินค้า B',
     price: 2000,
     quantity: 30,
+    minStock: 50, // จำนวนขั้นต่ำที่ต้องมี (มากกว่า quantity เพื่อทดสอบ alert)
     category: 'Clothing',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -57,7 +59,7 @@ export const getProducts = (req: AuthRequest, res: Response) => {
  */
 export const createProduct = (req: AuthRequest, res: Response) => {
   try {
-    const { name, description, price, quantity, category } = req.body;
+    const { name, description, price, quantity, minStock, category } = req.body;
 
     // ตรวจสอบข้อมูลที่จำเป็น
     if (!name || !price || quantity === undefined) {
@@ -82,6 +84,16 @@ export const createProduct = (req: AuthRequest, res: Response) => {
       });
     }
 
+    // ตรวจสอบ minStock ถ้ามี
+    if (minStock !== undefined) {
+      if (typeof minStock !== 'number' || minStock < 0) {
+        return res.status(400).json({
+          success: false,
+          message: 'minStock ต้องเป็นตัวเลขที่มากกว่าหรือเท่ากับ 0',
+        });
+      }
+    }
+
     // สร้างสินค้าใหม่
     const newProduct = {
       id: String(products.length + 1), // สร้าง ID แบบง่าย (ในอนาคตจะใช้ database auto-increment)
@@ -89,6 +101,7 @@ export const createProduct = (req: AuthRequest, res: Response) => {
       description: description || '',
       price,
       quantity,
+      minStock: minStock !== undefined ? minStock : 0, // ถ้าไม่ระบุให้เป็น 0
       category: category || 'Uncategorized',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),

@@ -4,6 +4,7 @@ import authRoutes from './authRoutes.js';
 import profileRoutes from './profileRoutes.js';
 import productRoutes from './productRoutes.js';
 import stockRoutes from './stockRoutes.js';
+import alertRoutes from './alertRoutes.js';
 
 const router = Router();
 
@@ -21,6 +22,9 @@ router.use('/products', productRoutes);
 
 // Stock routes (ต้องมี JWT token)
 router.use('/stock', stockRoutes);
+
+// Alert routes (ต้องมี JWT token)
+router.use('/alerts', alertRoutes);
 
 export default router;
 
