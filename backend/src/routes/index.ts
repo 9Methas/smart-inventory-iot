@@ -5,6 +5,7 @@ import profileRoutes from './profileRoutes.js';
 import productRoutes from './productRoutes.js';
 import stockRoutes from './stockRoutes.js';
 import alertRoutes from './alertRoutes.js';
+import sensorRoutes from './sensorRoutes.js';
 
 const router = Router();
 
@@ -25,6 +26,9 @@ router.use('/stock', stockRoutes);
 
 // Alert routes (ต้องมี JWT token)
 router.use('/alerts', alertRoutes);
+
+// Sensor routes (ต้องมี JWT token)
+router.use('/sensors', sensorRoutes);
 
 export default router;
 
