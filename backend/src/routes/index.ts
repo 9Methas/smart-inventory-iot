@@ -3,6 +3,7 @@ import healthRoutes from './healthRoutes.js';
 import authRoutes from './authRoutes.js';
 import profileRoutes from './profileRoutes.js';
 import productRoutes from './productRoutes.js';
+import stockRoutes from './stockRoutes.js';
 
 const router = Router();
 
@@ -17,6 +18,9 @@ router.use('/profile', profileRoutes);
 
 // Product routes (ต้องมี JWT token)
 router.use('/products', productRoutes);
+
+// Stock routes (ต้องมี JWT token)
+router.use('/stock', stockRoutes);
 
 export default router;
 

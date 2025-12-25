@@ -3,7 +3,7 @@ import { AuthRequest } from '../middleware/authMiddleware.js';
 
 // Mock data สำหรับสินค้า (ยังไม่เชื่อมฐานข้อมูล)
 // ในอนาคตจะแทนที่ด้วยข้อมูลจาก database
-let products = [
+export let products = [
   {
     id: '1',
     name: 'สินค้า A',
